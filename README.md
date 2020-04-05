@@ -17,14 +17,16 @@ Face normalization refers to a family of approaches that rotate a non-frontal fa
 
 Pre-requisites
 -- 
-- Python 2.7 or 3.6
+- Python3
 - CUDA 9.0 or higher
-- Install [Tensorflow](https://www.tensorflow.org/) following the website.
+- Install [Pytorch](https://pytorch.org/) following the website for face cropped.
+- Install [Tensorflow](https://www.tensorflow.org/) following the website for image synthesizeation.
+
  
 
 Datasets
 --
-In this paper, we use two face datasets, and all face images are normalized to 250x250 according to landmarks. According to the five facial points, please follow the align protocol in the [paper]().
+In this paper, we use two face datasets, and all face images are normalized to 250x250 according to landmarks. According to the five facial points extracted by [MTCNN](https://arxiv.org/abs/1604.02878), please follow the align protocol in the [paper]().
 - **Multi-PIE** All the subjects in Multi-PIE were chosen for training and further divided into two normal sets, i.e., front- and side-view normal set, in neural expression with 5 illumination conditions.
 - **CAISA-WebFace** We use CASIA-WebFace as source set in unconstrained experiment. Surely you can download other face dataset such as VGGFace2 and MS-Celeb-1M as unconstrained input. 
  
@@ -32,19 +34,23 @@ In this paper, we use two face datasets, and all face images are normalized to 2
 Procedure to evaluate the model
 --
 1. Clone the Repository to preserve Directory Structure. 
-2. Download the [model](), unzip it and put the models in **/Pretrained/DVN/** directory.
-3. For evaluation data, put the images in **Eval** folder. 
-4. After step 3, generate the dual-view normalized faces by running:
+2. Download the [encoder model](https://drive.google.com/open?id=1yk_GN-rKWitRiw_6iXE0bEZu4G_rRfPT), unzip it and put the models in **/Pretrained/** directory.
+3. Download the [DVN model](https://drive.google.com/open?id=1-GPU7OBgUJydpRW1YWaojir_BSSr3_X_), unzip it and put the models in **/Pretrained/DVN/** directory.
+4. For evaluation data, put the images in **/Eval/Src_Img/** folder. 
+5. After step 4, change the directrory to **/FaceAlignment/**(*cd FaceAlignment*), and crop the input face images by running:
+```python face_align.py```
+6. After step 5, go back to previous directory (*cd ..*), and generate the dual-view normalized faces by running:
 ```python test.py --checkpoint_ft model_path in step.1```
-5. The normalized faces will be stored in **Result** folder.
+5. The normalized faces will be stored in **/Eval/Face_Syn** folder.
 
 
  
 Citation
+--
 ```
 ```
 
-Contacts
+License 
 --
 Please feel free to contact us if you have any questions.
 
