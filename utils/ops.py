@@ -1,11 +1,3 @@
-# coding: utf-8
-# --------------------------------------------------------
-# FNM
-# Written by Yichen Qian
-# --------------------------------------------------------
-
-import math
-import numpy as np
 import tensorflow as tf
 from config import cfg
 import tensorflow.contrib.slim as slim

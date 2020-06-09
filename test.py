@@ -2,7 +2,7 @@
 import os
 import tensorflow as tf
 from PIL import Image
-from DVN import DVN
+from Layer2_Generator import Layer2_Generator
 from config import cfg
 import numpy as np
 
@@ -31,19 +31,28 @@ def main(_):
   os.environ["CUDA_VISIBLE_DEVICES"] = cfg.device_id
   
   cfg.batch_size = 1
-  net = DVN()
+  net = Layer2_Generator()
   
-  source = tf.placeholder(tf.float32, [1, 224, 224, 3], name='source')
-  normal_f = tf.placeholder(tf.float32, [1, 224, 224, 3], name='normal_f')
-  normal_s = tf.placeholder(tf.float32, [1, 224, 224, 3], name='normal_s')
-  net.build_up(source, normal_f, normal_s)
+  src_set = tf.compat.v1.placeholder(tf.float32, [cfg.batch_size, 224, 224, 3], name='source_l2')
+  nml_f_set = tf.compat.v1.placeholder(tf.float32, [cfg.batch_size, 224, 224, 3], name='source_l2')
+  nml_s_set = tf.compat.v1.placeholder(tf.float32, [cfg.batch_size, 224, 224, 3], name='source_l2')
+  src_f_l2_set = tf.compat.v1.placeholder(tf.float32, [cfg.batch_size, 224, 224, 3], name='source_l2')
+  src_s_l2_set = tf.compat.v1.placeholder(tf.float32, [cfg.batch_size, 224, 224, 3], name='source_l2')
+  nml_ff_l2_set = tf.compat.v1.placeholder(tf.float32, [cfg.batch_size, 224, 224, 3], name='normal_f_l2')
+  nml_sf_l2_set = tf.compat.v1.placeholder(tf.float32, [cfg.batch_size, 224, 224, 3], name='normal_s_l2')
+  nml_fs_l2_set = tf.compat.v1.placeholder(tf.float32, [cfg.batch_size, 224, 224, 3], name='normal_f_l2')
+  nml_ss_l2_set = tf.compat.v1.placeholder(tf.float32, [cfg.batch_size, 224, 224, 3], name='normal_s_l2')
+  is_train = tf.compat.v1.placeholder(tf.bool, name='is_train')
+  gen_ref = net.build_up(src_set, nml_f_set, nml_s_set, src_f_l2_set,
+                                                  src_s_l2_set, nml_ff_l2_set, nml_sf_l2_set,
+                                                  nml_fs_l2_set, nml_ss_l2_set, is_train)
   
   print('Load Finetuned Model Successfully!')
   
   # Train or Test
   config = tf.ConfigProto()
   config.gpu_options.allow_growth = True
-  with tf.Session(config=config, graph=net.graph) as sess:
+  with tf.Session(config=config) as sess:
     sess.run(tf.global_variables_initializer())
     
     saver = tf.train.Saver(max_to_keep=0)  #
@@ -53,7 +62,7 @@ def main(_):
       for file in files:
 
         img_src = read_img(roots, file)
-        syn_f, syn_s = sess.run([net.gen_p_051, net.gen_p_240], {source: img_src, net.is_train: False})  #
+        syn_f, syn_s = sess.run([gen_ref[0], gen_ref[1]], {src_set: img_src, net.is_train: False})  #
         save_img('{}/{}'.format(SavePath, file), img_src, syn_f, syn_s)
         print(file)
 
