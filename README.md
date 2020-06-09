@@ -36,7 +36,7 @@ Procedure to evaluate the model
 --
 1. Clone the Repository to preserve Directory Structure. 
 2. Download the [encoder model](https://drive.google.com/open?id=1yk_GN-rKWitRiw_6iXE0bEZu4G_rRfPT), unzip it and put the models in **/Pretrained/** directory.
-3. Download the [DVN model](https://drive.google.com/open?id=1-GPU7OBgUJydpRW1YWaojir_BSSr3_X_), unzip it and put the models in **/Pretrained/DVN/** directory.
+3. Download the [DVN model](https://drive.google.com/file/d/1Dut_IsIQTTJZFBe5PfT0MR0GYReVKWTz/view?usp=sharing), unzip it and put the models in **/Pretrained/DVN/** directory.
 4. For data evaluation, put the images in **/Eval/Src_Img/** folder. 
 5. After step 4, change the directrory to **/FaceAlignment/** (*cd FaceAlignment*), and crop the input face images by running:
 ```python face_align.py```
