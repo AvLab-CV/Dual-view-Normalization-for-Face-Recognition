@@ -8,12 +8,13 @@ This repository will give the evaluation code for *Dual-View Normalization for F
 Overview
 --
 Face normalization refers to a family of approaches that rotate a non-frontal face to a frontal pose for better handling of face recognition. While a great majority of face normalization methods focus on frontal pose only, we proposed a framework for dual-view normalization that generates a frontal pose and an additional yaw-45 pose to an input face of arbitrary pose. The contribution of this work can be summarized as follows:
-- Different from the existing face normalization approaches which consider the frontal pose as the only normalized view, the proposed DVN framework defines normalization in dual views, one in frontal view and the other in yaw-$45^{\circ}$ side view. The additional side-view normalization can better represent a face, leading to a better recognition performance. 
+- Different from the existing face normalization approaches which consider the frontal pose as the only normalized view, the proposed DVN framework defines normalization in dual views, one in frontal view and the other in yaw-45 side view. The additional side-view normalization can better represent a face, leading to a better recognition performance. 
 - The proposed DVN integrates identity preservation, face normalization and pose transformation so that it can transform a face of an arbitrary pose to specific normalized poses with identity well retained.      
 - The proposed DVN is verified highly competitive to state-of-the-art methods for face recognition.
 
 Here some dual-view normalization results:
 ![Alt text](./imgs/DualView_Results.png)
+For more details and settings about our work, please refer to the [paper](https://ieeexplore.ieee.org/abstract/document/9162013/).
 
 Pre-requisites
 -- 
@@ -48,5 +49,14 @@ Procedure to evaluate the model
 Citation
 --
 ```
+@article{hsu2020dual,
+  title={Dual-View Normalization for Face Recognition},
+  author={Hsu, Gee-Sern and Tang, Chia-Hao},
+  journal={IEEE Access},
+  volume={8},
+  pages={147765--147775},
+  year={2020},
+  publisher={IEEE}
+}
 ```
 Please feel free to contact us if you have any questions. Prof. Gee-Sern Jison Hsu e-mail: jison@mail.ntust.edu.tw
